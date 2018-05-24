@@ -2,7 +2,7 @@
 [![Swift Version](https://img.shields.io/badge/Swift-4.1-brightgreen.svg)](http://swift.org)
 [![Vapor Version](https://img.shields.io/badge/Vapor-3-30B6FC.svg)](http://vapor.codes)
 [![Circle CI](https://circleci.com/gh/nodes-vapor/reset/tree/master.svg?style=shield)](https://circleci.com/gh/nodes-vapor/reset)
-[![codebeat badge](https://codebeat.co/badges/10cffe07-3d4f-420c-adb9-a98529671bfa)](https://codebeat.co/projects/github-com-nodes-vapor-flash-master)
+[![codebeat badge](https://codebeat.co/badges/06ad8513-8a2d-4e68-acd7-16c2953f9326)](https://codebeat.co/projects/github-com-nodes-vapor-reset-master)
 [![codecov](https://codecov.io/gh/nodes-vapor/reset/branch/master/graph/badge.svg)](https://codecov.io/gh/nodes-vapor/reset)
 [![Readme Score](http://readme-score-api.herokuapp.com/score.svg?url=https://github.com/nodes-vapor/reset)](http://clayallsopp.github.io/readme-score?url=https://github.com/nodes-vapor/reset)
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/nodes-vapor/reset/master/LICENSE)
