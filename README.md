@@ -16,9 +16,7 @@ Update your `Package.swift` file.
 
 ## Getting started 🚀
 
-TODO.
-
-```
+TODO
 
 ## 🏆 Credits
 
