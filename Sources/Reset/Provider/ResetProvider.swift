@@ -90,6 +90,11 @@ extension ResetProvider {
         return try U
             .authenticate(using: payload, on: req)
             .unwrap(or: ResetError.userNotFound)
+            .try { user in
+                guard user.passwordChangeCount == payload.passwordChangeCount else {
+                    throw ResetError.tokenAlreadyUsed
+                }
+            }
             .flatMap(to: U.self) { user in
                 try req
                     .content

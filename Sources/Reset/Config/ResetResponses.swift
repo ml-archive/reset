@@ -38,6 +38,12 @@ public struct ResetResponses<U: JWTAuthenticatable> {
                     .encode(for: req)
             },
             resetPasswordEmailSent: { req in
+                guard
+                    req.http.accept.comparePreference(for: .html, to: .json) == .orderedAscending
+                else {
+                    return try HTTPResponse(status: .ok).encode(for: req)
+                }
+
                 return try req
                     .make(LeafRenderer.self)
                     // TODO: Remove empty context when this gets fixed
@@ -54,7 +60,13 @@ public struct ResetResponses<U: JWTAuthenticatable> {
                     .encode(for: req)
             },
             resetPasswordSuccess: { req, user in
-                try req
+                guard
+                    req.http.accept.comparePreference(for: .html, to: .json) == .orderedAscending
+                else {
+                    return try HTTPResponse(status: .ok).encode(for: req)
+                }
+
+                return try req
                     .make(LeafRenderer.self)
                     // TODO: Remove empty context when this gets fixed
                     // https://github.com/vapor/template-kit/issues/17
