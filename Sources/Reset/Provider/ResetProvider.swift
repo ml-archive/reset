@@ -124,7 +124,7 @@ private extension ResetProvider {
         let endpoints = config.endpoints
         router.get (endpoints.resetPasswordRequest, use: renderResetPasswordRequestForm)
         router.post(endpoints.resetPasswordRequest, use: resetPasswordRequest)
-        router.get (endpoints.resetPassword,    String.parameter, use: renderResetPasswordForm)
-        router.post(endpoints.resetPassword,    String.parameter, use: resetPassword)
+        router.get (endpoints.resetPassword, String.parameter, use: renderResetPasswordForm)
+        router.post(endpoints.resetPassword, String.parameter, use: resetPassword)
     }
 }
