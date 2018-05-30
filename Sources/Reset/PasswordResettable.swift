@@ -25,7 +25,11 @@ where
         on connection: DatabaseConnectable
     ) throws -> Future<Self?>
 
-    func sendPasswordResetLink(_ link: String, on container: Container) -> Future<Void>
+    func sendPasswordResetLink(
+        _ link: String,
+        expirationPeriod: TimeInterval,
+        on container: Container
+    ) throws -> Future<Void>
 
     /// By incrementing this value on each password change and including it in the JWT payload,
     /// this value ensures that a password reset token can only be used once.

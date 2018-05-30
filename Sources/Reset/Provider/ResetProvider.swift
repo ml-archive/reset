@@ -5,6 +5,14 @@ import Leaf
 import Sugar
 import Vapor
 
+extension ResetProvider {
+    public static var tags: [String: TagRenderer] {
+        return [
+            "reset:config": ResetConfigTag()
+        ]
+    }
+}
+
 public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
     public let config: ResetConfig<U>
 
@@ -17,6 +25,7 @@ public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
 extension ResetProvider: Provider {
     public func register(_ services: inout Services) throws {
         services.register(config)
+        services.register(ResetConfigTagData(name: config.name, baseUrl: config.baseUrl))
     }
 
     public func didBoot(_ container: Container) throws -> EventLoopFuture<Void> {
@@ -59,10 +68,13 @@ extension ResetProvider {
                 }
                 return try user.signToken(using: self.config.signer, on: req)
                     .flatMap(to: Void.self) { token in
-                        let link = try req
-                            .baseURLString(includePort: true)
-                            .appending("\(self.config.endpoints.resetPassword)/\(token)")
-                        return user.sendPasswordResetLink(link, on: req)
+                        let link = self.config.baseUrl
+                            .appending("\(self.config.endpoints.resetPassword ?? "")/\(token)")
+                        return try user.sendPasswordResetLink(
+                            link,
+                            expirationPeriod: self.config.signer.expirationPeriod,
+                            on: req
+                        )
                 }
             }
             .flatMap(to: Response.self) { _ in
@@ -127,9 +139,21 @@ private extension ResetProvider {
 
     func registerRoutes(on router: Router) {
         let endpoints = config.endpoints
-        router.get (endpoints.resetPasswordRequest, use: renderResetPasswordRequestForm)
-        router.post(endpoints.resetPasswordRequest, use: resetPasswordRequest)
-        router.get (endpoints.resetPassword, String.parameter, use: renderResetPasswordForm)
-        router.post(endpoints.resetPassword, String.parameter, use: resetPassword)
+
+        if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
+            router.get(renderResetPasswordRequestPath, use: renderResetPasswordRequestForm)
+        }
+
+        if let resetPasswordRequestPath = endpoints.resetPasswordRequest {
+            router.post(resetPasswordRequestPath, use: resetPasswordRequest)
+        }
+
+        if let renderResetPasswordPath = endpoints.renderResetPassword {
+            router.get(renderResetPasswordPath, String.parameter, use: renderResetPasswordForm)
+        }
+
+        if let resetPasswordPath = endpoints.resetPassword {
+            router.post(resetPasswordPath, String.parameter, use: resetPassword)
+        }
     }
 }

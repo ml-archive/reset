@@ -4,10 +4,10 @@ import Vapor
 
 public struct ResetResponses<U: JWTAuthenticatable> {
     private enum ViewPaths: String {
-        case resetPasswordRequestForm = "PasswordReset/reset-password-request-form"
-        case resetPasswordEmailSent = "PasswordReset/reset-password-email-sent"
-        case resetPasswordForm = "PasswordReset/reset-password-form"
-        case resetPasswordSuccess = "PasswordReset/reset-password-success"
+        case resetPasswordRequestForm = "Reset/Password/reset-password-request-form"
+        case resetPasswordEmailSent = "Reset/Password/reset-password-request-success"
+        case resetPasswordForm = "Reset/Password/reset-password-form"
+        case resetPasswordSuccess = "Reset/Password/reset-password-success"
     }
 
     public let resetPasswordRequestForm: (Request) throws -> Future<Response>
