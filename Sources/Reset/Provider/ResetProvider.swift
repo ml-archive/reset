@@ -68,10 +68,11 @@ extension ResetProvider {
                 }
                 return try user.signToken(using: self.config.signer, on: req)
                     .flatMap(to: Void.self) { token in
-                        let link = self.config.baseUrl
+                        let url = self.config.baseUrl
                             .appending("\(self.config.endpoints.resetPassword ?? "")/\(token)")
-                        return try user.sendPasswordResetLink(
-                            link,
+                        return try user.sendPasswordReset(
+                            url: url,
+                            token: token,
                             expirationPeriod: self.config.signer.expirationPeriod,
                             on: req
                         )

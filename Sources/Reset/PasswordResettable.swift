@@ -25,8 +25,9 @@ where
         on connection: DatabaseConnectable
     ) throws -> Future<Self?>
 
-    func sendPasswordResetLink(
-        _ link: String,
+    func sendPasswordReset(
+        url: String,
+        token: String,
         expirationPeriod: TimeInterval,
         on container: Container
     ) throws -> Future<Void>
