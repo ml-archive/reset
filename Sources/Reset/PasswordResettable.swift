@@ -29,7 +29,7 @@ where
         url: String,
         token: String,
         expirationPeriod: TimeInterval,
-        on container: Container
+        on req: Request
     ) throws -> Future<Void>
 
     /// By incrementing this value on each password change and including it in the JWT payload,
