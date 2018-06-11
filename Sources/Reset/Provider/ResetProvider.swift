@@ -28,7 +28,7 @@ extension ResetProvider: Provider {
         services.register(ResetConfigTagData(name: config.name, baseUrl: config.baseUrl))
     }
 
-    public func didBoot(_ container: Container) throws -> EventLoopFuture<Void> {
+    public func didBoot(_ container: Container) throws -> Future<Void> {
         if config.shouldRegisterRoutes {
             try registerRoutes(on: container.make())
         }

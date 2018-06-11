@@ -39,9 +39,9 @@ where
 
 extension PasswordResettable where Self.ID: LosslessStringConvertible {
     public static func authenticate(
-        using payload: Self.JWTPayload,
+        using payload: JWTPayload,
         on connection: DatabaseConnectable
-    ) throws -> EventLoopFuture<Self?> {
+    ) throws -> Future<Self?> {
         guard let id = ID(payload.sub.value) else {
             throw Sugar.AuthenticationError.malformedPayload
         }
