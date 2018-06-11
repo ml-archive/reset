@@ -17,11 +17,11 @@ where
     Self.Database: QuerySupporting,
     Self.JWTPayload: HasPasswordChangeCount
 {
-    associatedtype RequestLinkType: Decodable
-    associatedtype ResetPasswordType: HasReadablePassword
+    associatedtype RequestLink: Decodable
+    associatedtype ResetPassword: HasReadablePassword
 
     static func find(
-        by requestLink: RequestLinkType,
+        by requestLink: RequestLink,
         on connection: DatabaseConnectable
     ) throws -> Future<Self?>
 
@@ -52,13 +52,14 @@ extension PasswordResettable where Self.ID: LosslessStringConvertible {
 
 extension PasswordResettable where
     Self: PasswordAuthenticatable,
-    Self.RequestLinkType: HasReadableUser
+    Self.RequestLink: HasReadableUsername
 {
     public static func find(
-        by payload: RequestLinkType,
+        by payload: RequestLink,
         on connection: DatabaseConnectable
     ) throws -> Future<Self?> {
-        return try query(on: connection).filter(Self.usernameKey == payload.username).first()
+        let username = payload[keyPath: RequestLink.readableUsernameKey]
+        return try query(on: connection).filter(Self.usernameKey == username).first()
     }
 }
 
