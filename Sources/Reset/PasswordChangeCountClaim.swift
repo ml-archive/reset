@@ -6,7 +6,7 @@ public struct PasswordChangeCountClaim: JWTClaim {
     /// The number of times the password has been changed
     public var value: Int
 
-    /// See Claim.init
+    /// See `Claim.init`
     public init(value: Int) {
         self.value = value
     }
