@@ -37,19 +37,6 @@ where
     var passwordChangeCount: Int { get set }
 }
 
-extension PasswordResettable where Self.ID: LosslessStringConvertible {
-    public static func authenticate(
-        using payload: JWTPayload,
-        on connection: DatabaseConnectable
-    ) throws -> Future<Self?> {
-        guard let id = ID(payload.sub.value) else {
-            throw Sugar.AuthenticationError.malformedPayload
-        }
-
-        return try find(id, on: connection)
-    }
-}
-
 extension PasswordResettable where
     Self: PasswordAuthenticatable,
     Self.RequestLink: HasReadableUsername
