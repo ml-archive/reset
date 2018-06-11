@@ -4,8 +4,7 @@ import Fluent
 import Sugar
 
 /// Generates password reset tokens for a user which can be used to reset their password.
-public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command
-{
+public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command {
     /// See `Command`
     public let arguments: [CommandArgument] = [.argument(name: Keys.query)]
 
@@ -63,7 +62,6 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command
 }
 
 extension GeneratePasswordResetTokenCommand where U.ID: LosslessStringConvertible {
-
     /// Creates a new password reset token command that looks up users by database identifier.
     ///
     /// - Parameter databaseIdentifier: identifier of database from where to load the user
