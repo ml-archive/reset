@@ -10,13 +10,13 @@ public protocol RequestCreatable {
 }
 
 extension RequestCreatable where Self: Decodable {
-    static func create(on req: Request) throws -> Future<Self> {
+    public static func create(on req: Request) throws -> Future<Self> {
         return try req.content.decode(Self.self)
     }
 }
 
 extension RequestCreatable where Self: Submittable {
-    static func create(on req: Request) throws -> Future<Self> {
+    public static func create(on req: Request) throws -> Future<Self> {
         return try req.content.decode(Self.Submission.self).createValid(on: req)
     }
 }

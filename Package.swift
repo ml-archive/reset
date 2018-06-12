@@ -22,6 +22,7 @@ let package = Package(
             "JWT",
             "Leaf",
             "Sugar",
+            "Submissions",
             "Vapor"
         ]),
         .testTarget(name: "ResetTests", dependencies: ["Reset"]),
