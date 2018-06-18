@@ -5,14 +5,6 @@ import Leaf
 import Sugar
 import Vapor
 
-extension ResetProvider {
-    public static var tags: [String: TagRenderer] {
-        return [
-            "reset:config": ResetConfigTag()
-        ]
-    }
-}
-
 public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
     public let config: ResetConfig<U>
 
@@ -32,6 +24,10 @@ extension ResetProvider: Provider {
         if config.shouldRegisterRoutes {
             try registerRoutes(on: container.make())
         }
+        
+        let tags: LeafTagConfig = try container.make()
+        tags.use(ResetConfigTag(), as: "reset:config")
+
         return .done(on: container)
     }
 }
