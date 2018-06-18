@@ -14,8 +14,7 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
     /// See `CommandRunnable`
     public let help = ["Generates a password reset token for a user with a given id."]
 
-    /// See `CommandRunnable`
-    private let makeFilter: (String) throws -> ModelFilter<U>
+    private let makeFilter: (String) throws -> FilterOperator<U.Database, U>
 
     private let databaseIdentifier: DatabaseIdentifier<U.Database>
 
@@ -33,7 +32,7 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
     ///   - makeFilter: used to create the filter from the query.
     public init(
         databaseIdentifier: DatabaseIdentifier<U.Database>,
-        makeFilter: @escaping (String) throws -> ModelFilter<U>
+        makeFilter: @escaping (String) throws -> FilterOperator<U.Database, U>
     ) {
         self.databaseIdentifier = databaseIdentifier
         self.makeFilter = makeFilter
@@ -69,8 +68,8 @@ extension GeneratePasswordResetTokenCommand where U.ID: LosslessStringConvertibl
         databaseIdentifier: DatabaseIdentifier<U.Database>
     ) {
         self.databaseIdentifier = databaseIdentifier
-        self.makeFilter = { query -> ModelFilter<U> in
-            try U.idKey == U.ID(query)
+        self.makeFilter = { query -> FilterOperator<U.Database, U> in
+            U.idKey == U.ID(query)
         }
     }
 }

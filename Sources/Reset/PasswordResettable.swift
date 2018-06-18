@@ -14,7 +14,6 @@ public protocol PasswordResettable:
     JWTAuthenticatable,
     Model
 where
-    Self.Database: QuerySupporting,
     Self.JWTPayload: HasPasswordChangeCount
 {
     associatedtype RequestLink: Decodable
@@ -46,7 +45,7 @@ extension PasswordResettable where
         on connection: DatabaseConnectable
     ) throws -> Future<Self?> {
         let username = payload[keyPath: RequestLink.readableUsernameKey]
-        return try query(on: connection).filter(Self.usernameKey == username).first()
+        return query(on: connection).filter(Self.usernameKey == username).first()
     }
 }
 
