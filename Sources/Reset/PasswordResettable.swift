@@ -60,8 +60,8 @@ extension PasswordResettable where
     public static func find(
         by payload: RequestReset,
         on connection: DatabaseConnectable
-    ) throws -> Future<Self?> {
-        let username = payload[keyPath: RequestLink.readableUsernameKey]
+    ) -> Future<Self?> {
+        let username = payload[keyPath: RequestReset.readableUsernameKey]
         return query(on: connection).filter(Self.usernameKey == username).first()
     }
 }
