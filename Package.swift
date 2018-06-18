@@ -12,7 +12,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/fluent.git", from: "3.0.0-rc"),
         .package(url: "https://github.com/vapor/jwt.git", from: "3.0.0-rc"),
         .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0-rc"),
-        .package(url: "https://github.com/nodes-vapor/sugar.git", .branch("vapor-3"))
+        .package(url: "https://github.com/nodes-vapor/sugar.git", from: "3.0.0-beta")
     ],
     targets: [
         .target(name: "Reset", dependencies: ["Vapor", "Authentication", "Fluent", "JWT", "Leaf", "Sugar"]),
