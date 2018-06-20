@@ -25,7 +25,7 @@ extension ResetProvider: Provider {
             try registerRoutes(on: container.make())
         }
         
-        let tags: LeafTagConfig = try container.make()
+        let tags: MutableLeafTagConfig = try container.make()
         tags.use(ResetConfigTag(), as: "reset:config")
 
         return .done(on: container)
