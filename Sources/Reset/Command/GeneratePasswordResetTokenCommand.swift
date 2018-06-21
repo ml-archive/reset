@@ -64,9 +64,7 @@ extension GeneratePasswordResetTokenCommand where U.ID: LosslessStringConvertibl
     /// Creates a new password reset token command that looks up users by database identifier.
     ///
     /// - Parameter databaseIdentifier: identifier of database from where to load the user.
-    public init(
-        databaseIdentifier: DatabaseIdentifier<U.Database>
-    ) {
+    public init(databaseIdentifier: DatabaseIdentifier<U.Database>) {
         self.databaseIdentifier = databaseIdentifier
         self.makeFilter = { query -> FilterOperator<U.Database, U> in
             U.idKey == U.ID(query)
