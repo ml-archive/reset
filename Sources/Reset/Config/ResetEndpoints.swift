@@ -10,10 +10,10 @@ public struct ResetEndpoints {
     /// Endpoints to use by provider when registering routes.
     ///
     /// - Parameters:
-    ///   - renderResetPasswordRequest: reset password request form endpoint (GET)
-    ///   - resetPasswordRequest: reset password request endpoint (POST)
-    ///   - renderResetPassword: reset password form endpoint (GET)
-    ///   - resetPassword: reset password endpoint (POST)
+    ///   - renderResetPasswordRequest: reset password request form endpoint (GET).
+    ///   - resetPasswordRequest: reset password request endpoint (POST).
+    ///   - renderResetPassword: reset password form endpoint (GET).
+    ///   - resetPassword: reset password endpoint (POST).
     public init(
         renderResetPasswordRequest: String? = nil,
         resetPasswordRequest: String? = nil,

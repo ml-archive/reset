@@ -1,8 +1,25 @@
 import Authentication
 import Fluent
 import JWT
+import Submissions
 import Sugar
 import Vapor
+
+public protocol RequestCreatable {
+    static func create(on request: Request) throws -> Future<Self>
+}
+
+extension RequestCreatable where Self: Decodable {
+    public static func create(on req: Request) throws -> Future<Self> {
+        return try req.content.decode(Self.self)
+    }
+}
+
+extension RequestCreatable where Self: Submittable {
+    public static func create(on req: Request) throws -> Future<Self> {
+        return try req.content.decode(Self.Submission.self).createValid(on: req)
+    }
+}
 
 public protocol HasPasswordChangeCount {
     var passwordChangeCount: Int { get }
@@ -16,11 +33,11 @@ public protocol PasswordResettable:
 where
     Self.JWTPayload: HasPasswordChangeCount
 {
-    associatedtype RequestLink: Decodable
-    associatedtype ResetPassword: HasReadablePassword
+    associatedtype RequestReset: RequestCreatable
+    associatedtype ResetPassword: HasReadablePassword, RequestCreatable
 
     static func find(
-        by requestLink: RequestLink,
+        by requestLink: RequestReset,
         on connection: DatabaseConnectable
     ) throws -> Future<Self?>
 
@@ -38,13 +55,13 @@ where
 
 extension PasswordResettable where
     Self: PasswordAuthenticatable,
-    Self.RequestLink: HasReadableUsername
+    Self.RequestReset: HasReadableUsername
 {
     public static func find(
-        by payload: RequestLink,
+        by payload: RequestReset,
         on connection: DatabaseConnectable
-    ) throws -> Future<Self?> {
-        let username = payload[keyPath: RequestLink.readableUsernameKey]
+    ) -> Future<Self?> {
+        let username = payload[keyPath: RequestReset.readableUsernameKey]
         return query(on: connection).filter(Self.usernameKey == username).first()
     }
 }
@@ -65,7 +82,6 @@ extension PasswordResettable where
 
 public protocol ModelPayloadType: ExpireableSubjectPayload, HasPasswordChangeCount {
     associatedtype PayloadModel: Model
-    var pcc: PasswordChangeCountClaim { get }
     init(expirationTime: Date, model: PayloadModel) throws
 }
 

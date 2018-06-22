@@ -12,12 +12,12 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
     /// Creates a new PasswordReset configuration.
     ///
     /// - Parameters:
-    ///   - name: the name of your project
+    ///   - name: the name of your project.
     ///   - baseUrl: the base url of your project. Used for generating reset password links.
     ///   - endpoints: determines the endpoints for the routes
-    ///   - shouldRegisterRoutes: determines whether to register the default routes at boot time
-    ///   - signer: signer and expiration period for password reset tokens
-    ///   - responses: contains the responses to be returned when requesting the endpoints
+    ///   - shouldRegisterRoutes: determines whether to register the default routes at boot time.
+    ///   - signer: signer and expiration period for password reset tokens.
+    ///   - responses: contains the responses to be returned when requesting the endpoints.
     public init(
         name: String,
         baseUrl: String,

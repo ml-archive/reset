@@ -5,14 +5,6 @@ import Leaf
 import Sugar
 import Vapor
 
-extension ResetProvider {
-    public static var tags: [String: TagRenderer] {
-        return [
-            "reset:config": ResetConfigTag()
-        ]
-    }
-}
-
 public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
     public let config: ResetConfig<U>
 
@@ -24,6 +16,7 @@ public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
 // MARK: - Provider
 extension ResetProvider: Provider {
     public func register(_ services: inout Services) throws {
+        try services.register(MutableLeafTagConfigProvider())
         services.register(config)
         services.register(ResetConfigTagData(name: config.name, baseUrl: config.baseUrl))
     }
@@ -32,6 +25,10 @@ extension ResetProvider: Provider {
         if config.shouldRegisterRoutes {
             try registerRoutes(on: container.make())
         }
+        
+        let tags: MutableLeafTagConfig = try container.make()
+        tags.use(ResetConfigTag(), as: "reset:config")
+
         return .done(on: container)
     }
 }
@@ -56,13 +53,11 @@ extension ResetProvider {
     }
 
     public func resetPasswordRequest(req: Request) throws -> Future<Response> {
-        return try req
-            .content
-            .decode(U.RequestLink.self)
+        return try U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
             .flatMap(to: Void.self) { user in
                 guard let user = user else {
-                    // ignore case where user could not be found to prevent malicious users from
+                    // ignore case where user could not be found to prevent malicious attackers from
                     // finding out which accounts are available on the system
                     return .done(on: req)
                 }
@@ -109,9 +104,7 @@ extension ResetProvider {
                 }
             }
             .flatMap(to: U.self) { user in
-                try req
-                    .content
-                    .decode(U.ResetPassword.self)
+                try U.ResetPassword.create(on: req)
                     .flatMap(to: U.self) { resetPassword in
                         var user = user
                         let password = resetPassword[keyPath: U.ResetPassword.readablePasswordKey]
