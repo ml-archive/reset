@@ -16,6 +16,7 @@ public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
 // MARK: - Provider
 extension ResetProvider: Provider {
     public func register(_ services: inout Services) throws {
+        try services.register(MutableLeafTagConfigProvider())
         services.register(config)
         services.register(ResetConfigTagData(name: config.name, baseUrl: config.baseUrl))
     }
