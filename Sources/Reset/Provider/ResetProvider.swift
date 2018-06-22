@@ -54,10 +54,6 @@ extension ResetProvider {
 
     public func resetPasswordRequest(req: Request) throws -> Future<Response> {
         return try U.RequestReset.create(on: req)
-//            req
-//            .content
-//            .decode(U.RequestReset.Submission.self)
-//            .createValid(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
             .flatMap(to: Void.self) { user in
                 guard let user = user else {
