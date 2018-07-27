@@ -1,5 +1,6 @@
 import Service
 import Sugar
+import Vapor
 
 public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
     public let name: String
@@ -32,5 +33,29 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
         self.endpoints = endpoints
         self.shouldRegisterRoutes = shouldRegisterRoutes
         self.responses = responses
+    }
+}
+
+// MAKR: - Helpers
+
+public extension ResetConfig {
+    func reset<T: PasswordResettable>(
+        _ object: T,
+        context: T.Context,
+        on req: Request
+    ) throws -> Future<Void> {
+        let signer = try object.signer(for: context, on: req)
+        return try object.signToken(using: signer, on: req)
+            .flatMap(to: Void.self) { token in
+                let url = self.baseUrl
+                    .appending("\(self.endpoints.resetPassword ?? "")/\(token)")
+                return try object.sendPasswordReset(
+                    url: url,
+                    token: token,
+                    expirationPeriod: signer.expirationPeriod,
+                    context: context,
+                    on: req
+                )
+        }
     }
 }
