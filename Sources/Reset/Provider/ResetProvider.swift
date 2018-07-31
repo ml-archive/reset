@@ -55,23 +55,17 @@ extension ResetProvider {
     public func resetPasswordRequest(req: Request) throws -> Future<Response> {
         return try U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
-            .flatMap(to: Void.self) { user in
+            .flatTry { user -> Future<Void> in
                 guard let user = user else {
                     // ignore case where user could not be found to prevent malicious attackers from
                     // finding out which accounts are available on the system
                     return .done(on: req)
                 }
-                return try user.signToken(using: self.config.signer, on: req)
-                    .flatMap(to: Void.self) { token in
-                        let url = self.config.baseUrl
-                            .appending("\(self.config.endpoints.resetPassword ?? "")/\(token)")
-                        return try user.sendPasswordReset(
-                            url: url,
-                            token: token,
-                            expirationPeriod: self.config.signer.expirationPeriod,
-                            on: req
-                        )
-                }
+                return try self.config.reset(
+                    user,
+                    context: U.Context.requestResetPassword(),
+                    on: req
+                )
             }
             .flatMap(to: Response.self) { _ in
                 try self.config.responses.resetPasswordEmailSent(req)

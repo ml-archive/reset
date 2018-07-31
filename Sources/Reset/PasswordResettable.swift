@@ -25,6 +25,18 @@ public protocol HasPasswordChangeCount {
     var passwordChangeCount: Int { get }
 }
 
+public protocol HasRequestResetPasswordContext {
+    static func requestResetPassword() -> Self
+}
+
+public enum ResetPasswordContext: HasRequestResetPasswordContext {
+    case userRequestedToResetPassword
+
+    public static func requestResetPassword() -> ResetPasswordContext {
+        return .userRequestedToResetPassword
+    }
+}
+
 public protocol PasswordResettable:
     HasPassword,
     HasPasswordChangeCount,
@@ -35,6 +47,7 @@ where
 {
     associatedtype RequestReset: RequestCreatable
     associatedtype ResetPassword: HasReadablePassword, RequestCreatable
+    associatedtype Context: HasRequestResetPasswordContext
 
     static func find(
         by requestLink: RequestReset,
@@ -45,12 +58,22 @@ where
         url: String,
         token: String,
         expirationPeriod: TimeInterval,
+        context: Context,
         on req: Request
     ) throws -> Future<Void>
 
     /// By incrementing this value on each password change and including it in the JWT payload,
     /// this value ensures that a password reset token can only be used once.
     var passwordChangeCount: Int { get set }
+
+    func signer(for context: Context, on req: Request) throws -> ExpireableJWTSigner
+}
+
+public extension PasswordResettable {
+    func signer(for context: Context, on req: Request) throws -> ExpireableJWTSigner {
+        let defaultSigner: ExpireableJWTSigner = try req.make()
+        return defaultSigner
+    }
 }
 
 extension PasswordResettable where
