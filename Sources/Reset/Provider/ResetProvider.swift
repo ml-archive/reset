@@ -121,7 +121,7 @@ private extension ResetProvider {
             verifiedUsing: config.signer.signer
         ).payload
 
-        try payload.verify()
+        try payload.verify(using: config.signer.signer)
 
         return payload
     }
