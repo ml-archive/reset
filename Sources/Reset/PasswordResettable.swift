@@ -129,8 +129,8 @@ where
         self.pcc = PasswordChangeCountClaim(value: model.passwordChangeCount)
     }
 
-    public func verify() throws {
-        try exp.verify()
+    public func verify(using signer: JWTSigner) throws {
+        try exp.verifyNotExpired()
     }
 
     public var passwordChangeCount: Int {
