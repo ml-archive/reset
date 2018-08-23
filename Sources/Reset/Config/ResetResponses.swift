@@ -32,9 +32,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
             resetPasswordRequestForm: { req in
                 return try req
                     .make(LeafRenderer.self)
-                    // TODO: Remove empty context when this gets fixed
-                    // https://github.com/vapor/template-kit/issues/17
-                    .render(ViewPaths.resetPasswordRequestForm.rawValue, [String: String]())
+                    .render(ViewPaths.resetPasswordRequestForm.rawValue)
                     .encode(for: req)
             },
             resetPasswordEmailSent: { req in
@@ -46,17 +44,13 @@ public struct ResetResponses<U: JWTAuthenticatable> {
 
                 return try req
                     .make(LeafRenderer.self)
-                    // TODO: Remove empty context when this gets fixed
-                    // https://github.com/vapor/template-kit/issues/17
-                    .render(ViewPaths.resetPasswordEmailSent.rawValue, [String: String]())
+                    .render(ViewPaths.resetPasswordEmailSent.rawValue)
                     .encode(for: req)
             },
             resetPasswordForm: { req, user in
                 return try req
                     .make(LeafRenderer.self)
-                    // TODO: Remove empty context when this gets fixed
-                    // https://github.com/vapor/template-kit/issues/17
-                    .render(ViewPaths.resetPasswordForm.rawValue, [String: String]())
+                    .render(ViewPaths.resetPasswordForm.rawValue)
                     .encode(for: req)
             },
             resetPasswordSuccess: { req, user in
@@ -68,9 +62,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
 
                 return try req
                     .make(LeafRenderer.self)
-                    // TODO: Remove empty context when this gets fixed
-                    // https://github.com/vapor/template-kit/issues/17
-                    .render(ViewPaths.resetPasswordSuccess.rawValue, [String: String]())
+                    .render(ViewPaths.resetPasswordSuccess.rawValue)
                     .encode(for: req)
             }
         )
