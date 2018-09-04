@@ -18,7 +18,7 @@ extension ResetProvider: Provider {
     public func register(_ services: inout Services) throws {
         try services.register(MutableLeafTagConfigProvider())
         services.register(config)
-        services.register(ResetConfigTagData(name: config.name, baseUrl: config.baseUrl))
+        services.register(ResetConfigTagData(name: config.name, baseURL: config.baseURL))
     }
 
     public func didBoot(_ container: Container) throws -> Future<Void> {
