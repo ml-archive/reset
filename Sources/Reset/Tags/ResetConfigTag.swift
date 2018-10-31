@@ -14,8 +14,8 @@ public final class ResetConfigTag: TagRenderer {
 
 public final class ResetConfigTagData: Service {
     enum Keys: String {
-        case name = "name"
-        case baseURL = "baseURL"
+        case name
+        case baseURL
     }
 
     public var name = ""
