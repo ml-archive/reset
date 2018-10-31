@@ -1,5 +1,5 @@
 # Reset 🏳
-[![Swift Version](https://img.shields.io/badge/Swift-4.1-brightgreen.svg)](http://swift.org)
+[![Swift Version](https://img.shields.io/badge/Swift-4.2-brightgreen.svg)](http://swift.org)
 [![Vapor Version](https://img.shields.io/badge/Vapor-3-30B6FC.svg)](http://vapor.codes)
 [![Circle CI](https://circleci.com/gh/nodes-vapor/reset/tree/master.svg?style=shield)](https://circleci.com/gh/nodes-vapor/reset)
 [![codebeat badge](https://codebeat.co/badges/06ad8513-8a2d-4e68-acd7-16c2953f9326)](https://codebeat.co/projects/github-com-nodes-vapor-reset-master)
