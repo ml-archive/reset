@@ -26,7 +26,7 @@ public final class ResetController<U: JWTAuthenticatable & PasswordResettable> {
                 )
             }
             .flatMap(to: Response.self) { _ in
-                try config.responses.resetPasswordEmailSent(req)
+                try config.responses.resetPasswordUserNotified(req)
             }
     }
 
