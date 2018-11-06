@@ -42,7 +42,7 @@ public final class ResetController<U: JWTAuthenticatable & PasswordResettable> {
                     throw ResetError.tokenAlreadyUsed
                 }
                 return try config.responses.resetPasswordForm(req, user)
-        }
+            }
     }
 
     public func resetPassword(req: Request) throws -> Future<Response> {
