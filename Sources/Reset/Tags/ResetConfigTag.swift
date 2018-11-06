@@ -18,13 +18,10 @@ public final class ResetConfigTagData: Service {
         case baseURL
     }
 
-    public var name = ""
-    public var baseURL = ""
+    public let name: String
+    public let baseURL: String
 
-    init(
-        name: String,
-        baseURL: String
-    ) {
+    init(name: String, baseURL: String) { 
         self.name = name
         self.baseURL = baseURL
     }
