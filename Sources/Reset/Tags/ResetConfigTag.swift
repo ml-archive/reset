@@ -21,7 +21,7 @@ public final class ResetConfigTagData: Service {
     public let name: String
     public let baseURL: String
 
-    init(name: String, baseURL: String) { 
+    init(name: String, baseURL: String) {
         self.name = name
         self.baseURL = baseURL
     }
