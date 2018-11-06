@@ -94,47 +94,9 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
 }
 ```
 
-### Specifying the responses
-
-All endpoints and responses that Reset uses can be overwritten. Reset provides response for the following cases:
-
-- Form for requesting a reset password flow
-- Response for letting the user know that the reset password url has been sent
-- Form for resetting the password
-- Response for letting the user know that the password has been reset
-
-Here's a small example where the request to reset password should only be exposed through the API:
-
-```swift
-
-let customResponse = ResetResponses(
-    resetPasswordRequestForm: { req in
-        return try HTTPResponse(status: .notFound).encode(for: req)
-    },
-    resetPasswordUserNotified: { req in
-        return try HTTPResponse(status: .noContent).encode(for: req)
-    },
-    resetPasswordForm: { req, user in
-        return try req
-            .make(LeafRenderer.self)
-            .render("MyPathForShowingResetForm")
-            .encode(for: req)
-    },
-    resetPasswordSuccess: { req, user in
-        return try req
-            .make(LeafRenderer.self)
-            .render("MyPathForShowingResetPasswordSuccess")
-            .encode(for: req)
-    }
-)
-
-```
-
-This instance can then be used when registering the provider as explained in [Adding the Provider](#adding-the-provider).
-
 ## Making a `PasswordResettable` model
 
-There's a couple of things that needs to be in place for conforming your model to `PasswordResettable`. Let's say you have a `User` model which you would like to add support for resetting a password.
+There's a couple of things that needs to be in place for conforming your model to `PasswordResettable`. The following example is based on having a `User` model which you would like to add support for resetting a password.
 
 ### Request and reset structs
 
@@ -242,6 +204,44 @@ extension User: PasswordResettable {
 ```
 
 > Please note that you need to implement your own `Context` if you want to handle multiple signers.
+
+## Specifying the responses
+
+All endpoints and responses that Reset uses can be overwritten. Reset provides responses for the following cases:
+
+- Form for requesting a reset password flow
+- Response for letting the user know that the reset password url has been sent
+- Form for resetting the password
+- Response for letting the user know that the password has been reset
+
+Here's a small example where the request to reset password should only be exposed through the API:
+
+```swift
+
+let customResponse = ResetResponses(
+    resetPasswordRequestForm: { req in
+        return try HTTPResponse(status: .notFound).encode(for: req)
+    },
+    resetPasswordUserNotified: { req in
+        return try HTTPResponse(status: .noContent).encode(for: req)
+    },
+    resetPasswordForm: { req, user in
+        return try req
+            .make(LeafRenderer.self)
+            .render("MyPathForShowingResetForm")
+            .encode(for: req)
+    },
+    resetPasswordSuccess: { req, user in
+        return try req
+            .make(LeafRenderer.self)
+            .render("MyPathForShowingResetPasswordSuccess")
+            .encode(for: req)
+    }
+)
+
+```
+
+This instance can then be used when registering the provider as explained in [Adding the Provider](#adding-the-provider).
 
 ## 🏆 Credits
 
