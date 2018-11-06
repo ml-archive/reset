@@ -22,7 +22,6 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
         name: String,
         baseURL: String,
         endpoints: ResetEndpoints = .default,
-        shouldRegisterRoutes: Bool = true,
         signer: ExpireableJWTSigner,
         responses: ResetResponses<U> = .default
     ) {
