@@ -5,24 +5,24 @@ import Vapor
 public struct ResetResponses<U: JWTAuthenticatable> {
     private enum ViewPaths: String {
         case resetPasswordRequestForm = "Reset/Password/reset-password-request-form"
-        case resetPasswordEmailSent = "Reset/Password/reset-password-request-success"
+        case resetPasswordUserNotified = "Reset/Password/reset-password-request-success"
         case resetPasswordForm = "Reset/Password/reset-password-form"
         case resetPasswordSuccess = "Reset/Password/reset-password-success"
     }
 
     public let resetPasswordRequestForm: (Request) throws -> Future<Response>
-    public let resetPasswordEmailSent: (Request) throws -> Future<Response>
+    public let resetPasswordUserNotified: (Request) throws -> Future<Response>
     public let resetPasswordForm: (Request, U) throws -> Future<Response>
     public let resetPasswordSuccess: (Request, U) throws -> Future<Response>
 
     public init(
         resetPasswordRequestForm: @escaping (Request) throws -> Future<Response>,
-        resetPasswordEmailSent: @escaping (Request) throws -> Future<Response>,
+        resetPasswordUserNotified: @escaping (Request) throws -> Future<Response>,
         resetPasswordForm: @escaping (Request, U) throws -> Future<Response>,
         resetPasswordSuccess: @escaping (Request, U) throws -> Future<Response>
     ) {
         self.resetPasswordRequestForm = resetPasswordRequestForm
-        self.resetPasswordEmailSent = resetPasswordEmailSent
+        self.resetPasswordUserNotified = resetPasswordUserNotified
         self.resetPasswordForm = resetPasswordForm
         self.resetPasswordSuccess = resetPasswordSuccess
     }
@@ -35,7 +35,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
                     .render(ViewPaths.resetPasswordRequestForm.rawValue)
                     .encode(for: req)
             },
-            resetPasswordEmailSent: { req in
+            resetPasswordUserNotified: { req in
                 guard
                     req.http.accept.comparePreference(for: .html, to: .json) == .orderedAscending
                 else {
@@ -44,7 +44,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
 
                 return try req
                     .make(LeafRenderer.self)
-                    .render(ViewPaths.resetPasswordEmailSent.rawValue)
+                    .render(ViewPaths.resetPasswordUserNotified.rawValue)
                     .encode(for: req)
             },
             resetPasswordForm: { req, user in

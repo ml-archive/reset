@@ -14,17 +14,14 @@ public final class ResetConfigTag: TagRenderer {
 
 public final class ResetConfigTagData: Service {
     enum Keys: String {
-        case name = "name"
-        case baseURL = "baseURL"
+        case name
+        case baseURL
     }
 
-    public var name = ""
-    public var baseURL = ""
+    public let name: String
+    public let baseURL: String
 
-    init(
-        name: String,
-        baseURL: String
-    ) {
+    init(name: String, baseURL: String) {
         self.name = name
         self.baseURL = baseURL
     }

@@ -15,8 +15,8 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
     public let help = ["Generates a password reset token for a user with a given id."]
 
     private let makeFilter: (String) -> FilterOperator<U.Database, U>
-
     private let databaseIdentifier: DatabaseIdentifier<U.Database>
+    private let context: U.Context
 
     /// Creates a new password reset token command with a custom lookup strategy.
     ///
@@ -30,18 +30,20 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
     /// - Parameters:
     ///   - databaseIdentifier: identifier of database from where to load the user.
     ///   - makeFilter: used to create the filter from the query.
+    ///   - context: The Reset context to use when generating the token.
     public init(
         databaseIdentifier: DatabaseIdentifier<U.Database>,
-        makeFilter: @escaping (String) -> FilterOperator<U.Database, U>
+        makeFilter: @escaping (String) -> FilterOperator<U.Database, U>,
+        context: U.Context = U.Context.requestResetPassword()
     ) {
         self.databaseIdentifier = databaseIdentifier
         self.makeFilter = makeFilter
+        self.context = context
     }
 
     /// See `CommandRunnable`
     public func run(using context: CommandContext) throws -> Future<Void> {
         let container = context.container
-        let signer = try container.make(ResetConfig<U>.self).signer
         let query = try context.argument(Keys.query)
 
         return container.withPooledConnection(to: databaseIdentifier) { connection in
@@ -51,7 +53,8 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
                 .first()
                 .unwrap(or: ResetError.userNotFound)
                 .flatMap(to: String.self) { user in
-                    try user.signToken(using: signer, on: container)
+                    let signer = try user.signer(for: self.context, on: container)
+                    return try user.signToken(using: signer, on: container)
                 }
                 .map {
                     context.console.print("Password Reset Token: \($0)")
@@ -60,15 +63,21 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
     }
 }
 
-extension GeneratePasswordResetTokenCommand where U.ID: LosslessStringConvertible {
+public extension GeneratePasswordResetTokenCommand where U.ID: LosslessStringConvertible {
     /// Creates a new password reset token command that looks up users by database identifier.
     ///
-    /// - Parameter databaseIdentifier: identifier of database from where to load the user.
-    public init(databaseIdentifier: DatabaseIdentifier<U.Database>) {
+    /// - Parameters:
+    ///   - databaseIdentifier: identifier of database from where to load the user.
+    ///   - context: The Reset context to use when generating the token.
+    public init(
+        databaseIdentifier: DatabaseIdentifier<U.Database>,
+        context: U.Context = U.Context.requestResetPassword()
+    ) {
         self.databaseIdentifier = databaseIdentifier
         self.makeFilter = { query -> FilterOperator<U.Database, U> in
             U.idKey == U.ID(query)
         }
+        self.context = context
     }
 }
 

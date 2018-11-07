@@ -6,9 +6,9 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
     public let name: String
     public let baseURL: String
     public let endpoints: ResetEndpoints
-    public let shouldRegisterRoutes: Bool
     public let signer: ExpireableJWTSigner
     public let responses: ResetResponses<U>
+    public let controller: ResetController<U>
 
     /// Creates a new PasswordReset configuration.
     ///
@@ -16,14 +16,12 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
     ///   - name: the name of your project.
     ///   - baseURL: the base url of your project. Used for generating reset password links.
     ///   - endpoints: determines the endpoints for the routes
-    ///   - shouldRegisterRoutes: determines whether to register the default routes at boot time.
     ///   - signer: signer and expiration period for password reset tokens.
     ///   - responses: contains the responses to be returned when requesting the endpoints.
     public init(
         name: String,
         baseURL: String,
         endpoints: ResetEndpoints = .default,
-        shouldRegisterRoutes: Bool = true,
         signer: ExpireableJWTSigner,
         responses: ResetResponses<U> = .default
     ) {
@@ -31,8 +29,8 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
         self.baseURL = baseURL
         self.signer = signer
         self.endpoints = endpoints
-        self.shouldRegisterRoutes = shouldRegisterRoutes
         self.responses = responses
+        self.controller = ResetController<U>()
     }
 }
 

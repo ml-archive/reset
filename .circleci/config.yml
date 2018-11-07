@@ -2,7 +2,7 @@ version: 2
 jobs:
   MacOS:
     macos:
-      xcode: "9.3.0"
+      xcode: "10.0.0"
     steps:
       - checkout
       - restore_cache:
@@ -11,6 +11,7 @@ jobs:
       - run:
           name: Install CMySQL and CTLS
           command: |
+            export HOMEBREW_NO_AUTO_UPDATE=1
             brew tap vapor/homebrew-tap
             brew install cmysql
             brew install ctls
@@ -19,7 +20,7 @@ jobs:
           name: Build and Run Tests
           no_output_timeout: 1800
           command: |
-            swift package generate-xcodeproj --enable-code-coverage    
+            swift package generate-xcodeproj --enable-code-coverage
             xcodebuild -scheme Reset-Package -enableCodeCoverage YES test | xcpretty
       - run:
           name: Report coverage to Codecov
@@ -31,14 +32,14 @@ jobs:
             - .build
   Linux:
     docker:
-      - image: nodesvapor/vapor-ci:swift-4.1
+      - image: nodesvapor/vapor-ci:swift-4.2
     steps:
       - checkout
       - restore_cache:
           keys:
             - v4-spm-deps-{{ checksum "Package.swift" }}
       - run:
-          name: Copy Package file
+          name: Copy Package File
           command: cp Package.swift res
       - run:
           name: Build and Run Tests
@@ -46,7 +47,7 @@ jobs:
           command: |
             swift test -Xswiftc -DNOJSON
       - run:
-          name: Restoring Package file
+          name: Restoring Package File
           command: mv res Package.swift
       - save_cache:
           key: v4-spm-deps-{{ checksum "Package.swift" }}
