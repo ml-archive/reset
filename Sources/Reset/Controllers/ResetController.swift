@@ -3,13 +3,24 @@ import JWT
 import Sugar
 import Vapor
 
-public final class ResetController<U: JWTAuthenticatable & PasswordResettable> {
-    public func renderResetPasswordRequestForm(req: Request) throws -> Future<Response> {
+public protocol ResetControllerType {
+    func renderResetPasswordRequestForm(_ req: Request) throws -> Future<Response>
+    func resetPasswordRequest(_ req: Request) throws -> Future<Response>
+    func renderResetPasswordForm(_ req: Request) throws -> Future<Response>
+    func resetPassword(_ req: Request) throws -> Future<Response>
+}
+
+open class ResetController
+    <U: JWTAuthenticatable & PasswordResettable>: ResetControllerType
+{
+    public init() {}
+
+    open func renderResetPasswordRequestForm(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         return try config.responses.resetPasswordRequestForm(req)
     }
 
-    public func resetPasswordRequest(req: Request) throws -> Future<Response> {
+    open func resetPasswordRequest(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         return try U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
@@ -30,7 +41,7 @@ public final class ResetController<U: JWTAuthenticatable & PasswordResettable> {
             }
     }
 
-    public func renderResetPasswordForm(req: Request) throws -> Future<Response> {
+    open func renderResetPasswordForm(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         let payload = try config.extractVerifiedPayload(from: req.parameters.next())
 
@@ -45,7 +56,7 @@ public final class ResetController<U: JWTAuthenticatable & PasswordResettable> {
             }
     }
 
-    public func resetPassword(req: Request) throws -> Future<Response> {
+    open func resetPassword(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         let payload = try config.extractVerifiedPayload(from: req.parameters.next())
 
@@ -73,8 +84,8 @@ public final class ResetController<U: JWTAuthenticatable & PasswordResettable> {
     }
 }
 
-fileprivate extension ResetConfig {
-    fileprivate func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
+public extension ResetConfig {
+    public func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
         let payload = try JWT<U.JWTPayload>(
             from: token.convertToData(),
             verifiedUsing: signer.signer

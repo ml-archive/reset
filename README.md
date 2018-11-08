@@ -243,6 +243,8 @@ let customResponse = ResetResponses(
 
 This instance can then be used when registering the provider as explained in [Adding the Provider](#adding-the-provider).
 
+Alternatively, instead of passing in `ResetResponses` in the `ResetConfig`, one could pass in their own implementation of `ResetControllerType` for full customizability.
+
 ## 🏆 Credits
 
 This package is developed and maintained by the Vapor team at [Nodes](https://www.nodesagency.com).
