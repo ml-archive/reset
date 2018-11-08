@@ -4,10 +4,10 @@ import Sugar
 import Vapor
 
 public protocol ResetControllerType {
-    func renderResetPasswordRequestForm(req: Request) throws -> Future<Response>
-    func resetPasswordRequest(req: Request) throws -> Future<Response>
-    func renderResetPasswordForm(req: Request) throws -> Future<Response>
-    func resetPassword(req: Request) throws -> Future<Response>
+    func renderResetPasswordRequestForm(_ req: Request) throws -> Future<Response>
+    func resetPasswordRequest(_ req: Request) throws -> Future<Response>
+    func renderResetPasswordForm(_ req: Request) throws -> Future<Response>
+    func resetPassword(_ req: Request) throws -> Future<Response>
 }
 
 open class ResetController
@@ -15,12 +15,12 @@ open class ResetController
 {
     public init() {}
 
-    open func renderResetPasswordRequestForm(req: Request) throws -> Future<Response> {
+    open func renderResetPasswordRequestForm(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         return try config.responses.resetPasswordRequestForm(req)
     }
 
-    open func resetPasswordRequest(req: Request) throws -> Future<Response> {
+    open func resetPasswordRequest(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         return try U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
@@ -41,7 +41,7 @@ open class ResetController
             }
     }
 
-    open func renderResetPasswordForm(req: Request) throws -> Future<Response> {
+    open func renderResetPasswordForm(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         let payload = try config.extractVerifiedPayload(from: req.parameters.next())
 
@@ -56,7 +56,7 @@ open class ResetController
             }
     }
 
-    open func resetPassword(req: Request) throws -> Future<Response> {
+    open func resetPassword(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
         let payload = try config.extractVerifiedPayload(from: req.parameters.next())
 
