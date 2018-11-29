@@ -44,11 +44,11 @@ public extension ResetConfig {
         context: T.Context,
         on req: Request
     ) throws -> Future<Void> {
-        let signer = try object.signer(for: context, on: req)
+        let signer = try T.signer(for: context, on: req)
         return try object.signToken(using: signer, on: req)
             .flatMap(to: Void.self) { token in
                 let url = self.baseURL
-                    .appending("\(self.endpoints.resetPassword ?? "")/\(token)")
+                    .appending("\(self.endpoints.resetPassword ?? "")/\(token)/\(context.description)")
                 return try object.sendPasswordReset(
                     url: url,
                     token: token,

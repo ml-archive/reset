@@ -53,7 +53,7 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
                 .first()
                 .unwrap(or: ResetError.userNotFound)
                 .flatMap(to: String.self) { user in
-                    let signer = try user.signer(for: self.context, on: container)
+                    let signer = try U.signer(for: self.context, on: container)
                     return try user.signToken(using: signer, on: container)
                 }
                 .map {

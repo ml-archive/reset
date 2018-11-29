@@ -25,16 +25,27 @@ public protocol HasPasswordChangeCount {
     var passwordChangeCount: Int { get }
 }
 
-public protocol HasRequestResetPasswordContext {
+public protocol HasRequestResetPasswordContext: LosslessStringConvertible {
     static func requestResetPassword() -> Self
 }
 
-public enum ResetPasswordContext: HasRequestResetPasswordContext {
+public extension HasRequestResetPasswordContext where
+    Self: RawRepresentable,
+    Self.RawValue == String
+{
+    public init?(_ description: String) { self.init(rawValue: description) }
+    public var description: String { return self.rawValue }
+}
+
+public enum ResetPasswordContext: String, HasRequestResetPasswordContext {
     case userRequestedToResetPassword
 
     public static func requestResetPassword() -> ResetPasswordContext {
         return .userRequestedToResetPassword
     }
+
+    public init?(_ description: String) { self.init(rawValue: description) }
+    public var description: String { return self.rawValue }
 }
 
 public protocol PasswordResettable:
@@ -66,11 +77,11 @@ where
     /// this value ensures that a password reset token can only be used once.
     var passwordChangeCount: Int { get set }
 
-    func signer(for context: Context, on container: Container) throws -> ExpireableJWTSigner
+    static func signer(for context: Context, on container: Container) throws -> ExpireableJWTSigner
 }
 
 public extension PasswordResettable {
-    func signer(for context: Context, on container: Container) throws -> ExpireableJWTSigner {
+    static func signer(for context: Context, on container: Container) throws -> ExpireableJWTSigner {
         let defaultSigner: ExpireableJWTSigner = try container.make()
         return defaultSigner
     }
