@@ -1,3 +1,4 @@
+import JWT
 import Service
 import Sugar
 import Vapor
@@ -6,7 +7,7 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
     public let name: String
     public let baseURL: String
     public let endpoints: ResetEndpoints
-    public let signer: ExpireableJWTSigner
+    public let signer: JWTSigner
     public let responses: ResetResponses<U>
     public let controller: ResetControllerType
 
@@ -23,7 +24,7 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
         name: String,
         baseURL: String,
         endpoints: ResetEndpoints = .default,
-        signer: ExpireableJWTSigner,
+        signer: JWTSigner,
         responses: ResetResponses<U> = .default,
         controller: ResetControllerType = ResetController<U>()
     ) {
@@ -44,15 +45,19 @@ public extension ResetConfig {
         context: T.Context,
         on req: Request
     ) throws -> Future<Void> {
-        let signer = try T.signer(for: context, on: req)
-        return try object.signToken(using: signer, on: req)
+        let expirationPeriod = T.expirationPeriod(for: context)
+        let expirableSigner = ExpireableJWTSigner(
+            expirationPeriod: expirationPeriod,
+            signer: self.signer
+        )
+        return try object.signToken(using: expirableSigner, on: req)
             .flatMap(to: Void.self) { token in
                 let url = self.baseURL
-                    .appending("\(self.endpoints.resetPassword ?? "")/\(token)/\(context.description)")
+                    .appending("\(self.endpoints.resetPassword ?? "")/\(token)")
                 return try object.sendPasswordReset(
                     url: url,
                     token: token,
-                    expirationPeriod: signer.expirationPeriod,
+                    expirationPeriod: expirationPeriod,
                     context: context,
                     on: req
                 )

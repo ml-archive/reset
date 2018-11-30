@@ -89,16 +89,12 @@ public extension ResetConfig {
         from req: Request
     ) throws -> U.JWTPayload {
         let token: String = try req.parameters.next()
-        let contextRaw: String = try req.parameters.next()
-        guard let context = U.Context(contextRaw) else { throw Abort(.notFound) }
-        let signer = try U.signer(for: context, on: req)
-
         let payload = try JWT<U.JWTPayload>(
             from: token.convertToData(),
-            verifiedUsing: signer.signer
+            verifiedUsing: signer
         ).payload
 
-        try payload.verify(using: signer.signer)
+        try payload.verify(using: signer)
 
         return payload
     }
