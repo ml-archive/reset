@@ -43,7 +43,7 @@ open class ResetController
 
     open func renderResetPasswordForm(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
-        let payload = try config.extractVerifiedPayload(from: req)
+        let payload = try config.extractVerifiedPayload(from: req.parameters.next())
 
         return try U
             .authenticate(using: payload, on: req)
@@ -58,7 +58,7 @@ open class ResetController
 
     open func resetPassword(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
-        let payload = try config.extractVerifiedPayload(from: req)
+        let payload = try config.extractVerifiedPayload(from: req.parameters.next())
 
         return try U
             .authenticate(using: payload, on: req)
@@ -85,8 +85,7 @@ open class ResetController
 }
 
 public extension ResetConfig {
-    public func extractVerifiedPayload(from req: Request) throws -> U.JWTPayload {
-        let token: String = try req.parameters.next()
+    public func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
         let payload = try JWT<U.JWTPayload>(
             from: token.convertToData(),
             verifiedUsing: signer
