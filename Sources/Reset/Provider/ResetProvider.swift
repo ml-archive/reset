@@ -74,7 +74,10 @@ public extension Router {
         }
 
         if let resetPasswordPath = endpoints.resetPassword {
-            post(resetPasswordPath, String.parameter, use: controller.resetPassword)
+            post(
+                resetPasswordPath, String.parameter,
+                use: controller.resetPassword
+            )
         }
     }
 }

@@ -45,6 +45,12 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
     public func run(using context: CommandContext) throws -> Future<Void> {
         let container = context.container
         let query = try context.argument(Keys.query)
+        let config: ResetConfig<U> = try container.make()
+        let expirationPeriod = U.expirationPeriod(for: self.context)
+        let expirableSigner = ExpireableJWTSigner(
+            expirationPeriod: expirationPeriod,
+            signer: config.signer
+        )
 
         return container.withPooledConnection(to: databaseIdentifier) { connection in
             U
@@ -53,8 +59,7 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
                 .first()
                 .unwrap(or: ResetError.userNotFound)
                 .flatMap(to: String.self) { user in
-                    let signer = try user.signer(for: self.context, on: container)
-                    return try user.signToken(using: signer, on: container)
+                    return try user.signToken(using: expirableSigner, on: container)
                 }
                 .map {
                     context.console.print("Password Reset Token: \($0)")

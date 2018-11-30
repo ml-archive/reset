@@ -66,13 +66,12 @@ where
     /// this value ensures that a password reset token can only be used once.
     var passwordChangeCount: Int { get set }
 
-    func signer(for context: Context, on container: Container) throws -> ExpireableJWTSigner
+    static func expirationPeriod(for context: Context) -> TimeInterval
 }
 
 public extension PasswordResettable {
-    func signer(for context: Context, on container: Container) throws -> ExpireableJWTSigner {
-        let defaultSigner: ExpireableJWTSigner = try container.make()
-        return defaultSigner
+    static func expirationPeriod(for context: Context) -> TimeInterval {
+        return 1.hoursInSecs
     }
 }
 

@@ -88,10 +88,10 @@ public extension ResetConfig {
     public func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
         let payload = try JWT<U.JWTPayload>(
             from: token.convertToData(),
-            verifiedUsing: signer.signer
+            verifiedUsing: signer
         ).payload
 
-        try payload.verify(using: signer.signer)
+        try payload.verify(using: signer)
 
         return payload
     }
