@@ -25,27 +25,16 @@ public protocol HasPasswordChangeCount {
     var passwordChangeCount: Int { get }
 }
 
-public protocol HasRequestResetPasswordContext: LosslessStringConvertible {
+public protocol HasRequestResetPasswordContext {
     static func requestResetPassword() -> Self
 }
 
-public extension HasRequestResetPasswordContext where
-    Self: RawRepresentable,
-    Self.RawValue == String
-{
-    public init?(_ description: String) { self.init(rawValue: description) }
-    public var description: String { return self.rawValue }
-}
-
-public enum ResetPasswordContext: String, HasRequestResetPasswordContext {
+public enum ResetPasswordContext: HasRequestResetPasswordContext {
     case userRequestedToResetPassword
 
     public static func requestResetPassword() -> ResetPasswordContext {
         return .userRequestedToResetPassword
     }
-
-    public init?(_ description: String) { self.init(rawValue: description) }
-    public var description: String { return self.rawValue }
 }
 
 public protocol PasswordResettable:
