@@ -1,4 +1,4 @@
-// swift-tools-version:4.2
+// swift-tools-version:4.1
 import PackageDescription
 
 let package = Package(
@@ -8,7 +8,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/nodes-vapor/submissions.git", from: "1.0.0-beta"),
-        .package(url: "https://github.com/nodes-vapor/sugar.git", from: "3.0.0-rc"),
+        .package(url: "https://github.com/nodes-vapor/sugar.git", from: "3.0.0"),
         .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "3.0.0"),
         .package(url: "https://github.com/vapor/jwt.git", from: "3.0.0"),

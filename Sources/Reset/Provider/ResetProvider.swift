@@ -17,15 +17,11 @@ public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
 
 extension ResetProvider: Provider {
     public func register(_ services: inout Services) throws {
-        try services.register(MutableLeafTagConfigProvider())
         services.register(config)
         services.register(ResetConfigTagData(name: config.name, baseURL: config.baseURL))
     }
 
     public func didBoot(_ container: Container) throws -> Future<Void> {
-        let tags: MutableLeafTagConfig = try container.make()
-        tags.use(ResetConfigTag(), as: "reset:config")
-
         return .done(on: container)
     }
 }
@@ -79,5 +75,13 @@ public extension Router {
                 use: controller.resetPassword
             )
         }
+    }
+}
+
+// MARK: Leaf tags
+
+public extension LeafTagConfig {
+    public mutating func useResetLeafTags() {
+        use(ResetConfigTag(), as: "reset:config")
     }
 }
