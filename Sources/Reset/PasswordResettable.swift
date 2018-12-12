@@ -5,22 +5,6 @@ import Submissions
 import Sugar
 import Vapor
 
-public protocol RequestCreatable {
-    static func create(on request: Request) throws -> Future<Self>
-}
-
-extension RequestCreatable where Self: Decodable {
-    public static func create(on req: Request) throws -> Future<Self> {
-        return try req.content.decode(Self.self)
-    }
-}
-
-extension RequestCreatable where Self: Submittable {
-    public static func create(on req: Request) throws -> Future<Self> {
-        return try req.content.decode(Self.Submission.self).createValid(on: req)
-    }
-}
-
 public protocol HasPasswordChangeCount {
     var passwordChangeCount: Int { get }
 }
@@ -45,9 +29,9 @@ public protocol PasswordResettable:
 where
     Self.JWTPayload: HasPasswordChangeCount
 {
+    associatedtype Context: HasRequestResetPasswordContext
     associatedtype RequestReset: RequestCreatable
     associatedtype ResetPassword: HasReadablePassword, RequestCreatable
-    associatedtype Context: HasRequestResetPasswordContext
 
     static func find(
         by requestLink: RequestReset,

@@ -68,15 +68,13 @@ open class ResetController
                     throw ResetError.tokenAlreadyUsed
                 }
             }
-            .flatMap(to: U.self) { user in
-                try U.ResetPassword.create(on: req)
-                    .flatMap(to: U.self) { resetPassword in
-                        var user = user
-                        let password = resetPassword[keyPath: U.ResetPassword.readablePasswordKey]
-                        user[keyPath: U.passwordKey] = try U.hashPassword(password)
-                        user.passwordChangeCount += 1
-                        return user.save(on: req)
-                    }
+            .and(U.ResetPassword.create(on: req))
+            .flatMap(to: U.self) { user, resetPassword in
+                var user = user
+                let password = resetPassword[keyPath: U.ResetPassword.readablePasswordKey]
+                user[keyPath: U.passwordKey] = try U.hashPassword(password)
+                user.passwordChangeCount += 1
+                return user.save(on: req)
             }
             .flatMap(to: Response.self) { user in
                 try config.responses.resetPasswordSuccess(req, user)
