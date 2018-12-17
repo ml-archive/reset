@@ -22,7 +22,7 @@ open class ResetController
 
     open func resetPasswordRequest(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
-        return try U.RequestReset.create(on: req)
+        return U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
             .flatTry { user -> Future<Void> in
                 guard let user = user else {

@@ -30,8 +30,8 @@ where
     Self.JWTPayload: HasPasswordChangeCount
 {
     associatedtype Context: HasRequestResetPasswordContext
-    associatedtype RequestReset: RequestCreatable
-    associatedtype ResetPassword: HasReadablePassword, RequestCreatable
+    associatedtype RequestReset: SelfCreatable
+    associatedtype ResetPassword: SelfCreatable, HasReadablePassword
 
     static func find(
         by requestLink: RequestReset,
@@ -81,7 +81,7 @@ extension PasswordResettable where
         on container: Container
     ) -> Future<JWTPayload> {
         return Future.map(on: container) {
-            try Self.JWTPayload.init(expirationTime: expirationTime, model: self)
+            try Self.JWTPayload(expirationTime: expirationTime, model: self)
         }
     }
 }
