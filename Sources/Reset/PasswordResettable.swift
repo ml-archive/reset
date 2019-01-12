@@ -30,8 +30,8 @@ where
     Self.JWTPayload: HasPasswordChangeCount
 {
     associatedtype Context: HasRequestResetPasswordContext
-    associatedtype RequestReset: SelfCreatable
-    associatedtype ResetPassword: SelfCreatable, HasReadablePassword
+    associatedtype RequestReset: Creatable
+    associatedtype ResetPassword: Creatable, HasReadablePassword
 
     static func find(
         by requestLink: RequestReset,
@@ -100,23 +100,23 @@ where
     public typealias PayloadModel = U
 
     public let exp: ExpirationClaim
-    public let sub: SubjectClaim
     public let pcc: PasswordChangeCountClaim
+    public let sub: SubjectClaim
 
     public init(
         expirationTime: Date,
         model: U
     ) throws {
         self.exp = ExpirationClaim(value: expirationTime)
-        self.sub = try SubjectClaim(value: model.requireID().description)
         self.pcc = PasswordChangeCountClaim(value: model.passwordChangeCount)
-    }
-
-    public func verify(using signer: JWTSigner) throws {
-        try exp.verifyNotExpired()
+        self.sub = try SubjectClaim(value: model.requireID().description)
     }
 
     public var passwordChangeCount: Int {
         return pcc.value
+    }
+
+    public func verify(using signer: JWTSigner) throws {
+        try exp.verifyNotExpired()
     }
 }
