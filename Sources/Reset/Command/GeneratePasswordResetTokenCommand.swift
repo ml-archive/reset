@@ -5,6 +5,7 @@ import Sugar
 
 /// Generates password reset tokens for a user which can be used to reset their password.
 public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command {
+
     /// See `Command`
     public let arguments: [CommandArgument] = [.argument(name: Keys.query)]
 
