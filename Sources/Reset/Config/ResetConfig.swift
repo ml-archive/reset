@@ -4,12 +4,12 @@ import Sugar
 import Vapor
 
 public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
-    public let name: String
     public let baseURL: String
-    public let endpoints: ResetEndpoints
-    public let signer: JWTSigner
-    public let responses: ResetResponses<U>
     public let controller: ResetControllerType
+    public let endpoints: ResetEndpoints
+    public let name: String
+    public let responses: ResetResponses<U>
+    public let signer: JWTSigner
 
     /// Creates a new PasswordReset configuration.
     ///
@@ -28,12 +28,12 @@ public struct ResetConfig<U: JWTAuthenticatable & PasswordResettable>: Service {
         responses: ResetResponses<U> = .default,
         controller: ResetControllerType = ResetController<U>()
     ) {
-        self.name = name
         self.baseURL = baseURL
-        self.signer = signer
-        self.endpoints = endpoints
-        self.responses = responses
         self.controller = controller
+        self.endpoints = endpoints
+        self.name = name
+        self.responses = responses
+        self.signer = signer
     }
 }
 

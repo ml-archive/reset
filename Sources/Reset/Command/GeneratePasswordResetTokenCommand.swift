@@ -54,13 +54,12 @@ public struct GeneratePasswordResetTokenCommand<U: PasswordResettable>: Command 
         )
 
         return container.withPooledConnection(to: databaseIdentifier) { connection in
-            U
-                .query(on: connection)
+            U.query(on: connection)
                 .filter(self.makeFilter(query))
                 .first()
                 .unwrap(or: ResetError.userNotFound)
                 .flatMap(to: String.self) { user in
-                    return try user.signToken(using: expirableSigner, on: container)
+                    try user.signToken(using: expirableSigner, on: container)
                 }
                 .map {
                     context.console.print("Password Reset Token: \($0)")
