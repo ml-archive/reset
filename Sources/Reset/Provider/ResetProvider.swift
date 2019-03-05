@@ -6,10 +6,10 @@ import Sugar
 import Vapor
 
 public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
-    public let config: ResetConfig<U>
+    private let configFactory: (Container) throws -> ResetConfig<U>
 
-    public init(config: ResetConfig<U>) {
-        self.config = config
+    public init(configFactory: @escaping (Container) throws -> ResetConfig<U>) {
+        self.configFactory = configFactory
     }
 }
 
@@ -17,8 +17,12 @@ public final class ResetProvider<U: JWTAuthenticatable & PasswordResettable> {
 
 extension ResetProvider: Provider {
     public func register(_ services: inout Services) throws {
-        services.register(config)
-        services.register(ResetConfigTagData(name: config.name, baseURL: config.baseURL))
+        services.register(factory: configFactory)
+
+        services.register { container -> ResetConfigTagData in
+            let config: ResetConfig<U> = try container.make()
+            return ResetConfigTagData(name: config.name, baseURL: config.baseURL)
+        }
     }
 
     public func didBoot(_ container: Container) throws -> Future<Void> {

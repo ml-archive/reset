@@ -48,9 +48,10 @@ public extension ResetConfig {
         let expirationPeriod = T.expirationPeriod(for: context)
         let expirableSigner = ExpireableJWTSigner(
             expirationPeriod: expirationPeriod,
-            signer: self.signer
+            signer: signer
         )
-        return try object.signToken(using: expirableSigner, on: req)
+        return try object
+            .signToken(using: expirableSigner, on: req)
             .flatMap(to: Void.self) { token in
                 let url = self.baseURL
                     .appending("\(self.endpoints.resetPassword ?? "")/\(token)")
@@ -61,6 +62,6 @@ public extension ResetConfig {
                     context: context,
                     on: req
                 )
-        }
+            }
     }
 }

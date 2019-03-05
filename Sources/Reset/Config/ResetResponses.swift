@@ -32,7 +32,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
             resetPasswordRequestForm: { req in
                 try req
                     .view()
-                    .render(ViewPaths.resetPasswordRequestForm.rawValue)
+                    .render(ViewPaths.resetPasswordRequestForm.rawValue, on: req)
                     .encode(for: req)
             },
             resetPasswordUserNotified: { req in
@@ -44,7 +44,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
 
                 return try req
                     .view()
-                    .render(ViewPaths.resetPasswordUserNotified.rawValue)
+                    .render(ViewPaths.resetPasswordUserNotified.rawValue, on: req)
                     .encode(for: req)
             },
             resetPasswordForm: { req, user in
@@ -62,7 +62,7 @@ public struct ResetResponses<U: JWTAuthenticatable> {
 
                 return try req
                     .view()
-                    .render(ViewPaths.resetPasswordSuccess.rawValue)
+                    .render(ViewPaths.resetPasswordSuccess.rawValue, on: req)
                     .encode(for: req)
             }
         )

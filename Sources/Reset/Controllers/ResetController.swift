@@ -24,7 +24,7 @@ open class ResetController
         let config: ResetConfig<U> = try req.make()
         return U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
-            .flatTry { user -> Future<Void> in
+            .flatTry { user in
                 guard let user = user else {
                     // ignore case where user could not be found to prevent malicious attackers from
                     // finding out which accounts are available on the system
@@ -84,10 +84,7 @@ open class ResetController
 
 public extension ResetConfig {
     public func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
-        let payload = try JWT<U.JWTPayload>(
-            from: token.convertToData(),
-            verifiedUsing: signer
-        ).payload
+        let payload = try JWT<U.JWTPayload>(from: token, verifiedUsing: signer).payload
 
         try payload.verify(using: signer)
 
