@@ -22,9 +22,9 @@ open class ResetController
 
     open func resetPasswordRequest(_ req: Request) throws -> Future<Response> {
         let config: ResetConfig<U> = try req.make()
-        return try U.RequestReset.create(on: req)
+        return U.RequestReset.create(on: req)
             .flatMap(to: U?.self) { try U.find(by: $0, on: req) }
-            .flatTry { user -> Future<Void> in
+            .flatTry { user in
                 guard let user = user else {
                     // ignore case where user could not be found to prevent malicious attackers from
                     // finding out which accounts are available on the system
@@ -68,15 +68,13 @@ open class ResetController
                     throw ResetError.tokenAlreadyUsed
                 }
             }
-            .flatMap(to: U.self) { user in
-                try U.ResetPassword.create(on: req)
-                    .flatMap(to: U.self) { resetPassword in
-                        var user = user
-                        let password = resetPassword[keyPath: U.ResetPassword.readablePasswordKey]
-                        user[keyPath: U.passwordKey] = try U.hashPassword(password)
-                        user.passwordChangeCount += 1
-                        return user.save(on: req)
-                    }
+            .and(U.ResetPassword.create(on: req))
+            .flatMap(to: U.self) { user, resetPassword in
+                var user = user
+                let password = resetPassword[keyPath: U.ResetPassword.readablePasswordKey]
+                user[keyPath: U.passwordKey] = try U.hashPassword(password)
+                user.passwordChangeCount += 1
+                return user.save(on: req)
             }
             .flatMap(to: Response.self) { user in
                 try config.responses.resetPasswordSuccess(req, user)
@@ -86,10 +84,7 @@ open class ResetController
 
 public extension ResetConfig {
     public func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
-        let payload = try JWT<U.JWTPayload>(
-            from: token.convertToData(),
-            verifiedUsing: signer
-        ).payload
+        let payload = try JWT<U.JWTPayload>(from: token, verifiedUsing: signer).payload
 
         try payload.verify(using: signer)
 

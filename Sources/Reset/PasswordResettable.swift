@@ -5,22 +5,6 @@ import Submissions
 import Sugar
 import Vapor
 
-public protocol RequestCreatable {
-    static func create(on request: Request) throws -> Future<Self>
-}
-
-extension RequestCreatable where Self: Decodable {
-    public static func create(on req: Request) throws -> Future<Self> {
-        return try req.content.decode(Self.self)
-    }
-}
-
-extension RequestCreatable where Self: Submittable {
-    public static func create(on req: Request) throws -> Future<Self> {
-        return try req.content.decode(Self.Submission.self).createValid(on: req)
-    }
-}
-
 public protocol HasPasswordChangeCount {
     var passwordChangeCount: Int { get }
 }
@@ -45,9 +29,9 @@ public protocol PasswordResettable:
 where
     Self.JWTPayload: HasPasswordChangeCount
 {
-    associatedtype RequestReset: RequestCreatable
-    associatedtype ResetPassword: HasReadablePassword, RequestCreatable
     associatedtype Context: HasRequestResetPasswordContext
+    associatedtype RequestReset: Creatable
+    associatedtype ResetPassword: Creatable, HasReadablePassword
 
     static func find(
         by requestLink: RequestReset,
@@ -97,7 +81,7 @@ extension PasswordResettable where
         on container: Container
     ) -> Future<JWTPayload> {
         return Future.map(on: container) {
-            try Self.JWTPayload.init(expirationTime: expirationTime, model: self)
+            try Self.JWTPayload(expirationTime: expirationTime, model: self)
         }
     }
 }
@@ -116,23 +100,23 @@ where
     public typealias PayloadModel = U
 
     public let exp: ExpirationClaim
-    public let sub: SubjectClaim
     public let pcc: PasswordChangeCountClaim
+    public let sub: SubjectClaim
 
     public init(
         expirationTime: Date,
         model: U
     ) throws {
         self.exp = ExpirationClaim(value: expirationTime)
-        self.sub = try SubjectClaim(value: model.requireID().description)
         self.pcc = PasswordChangeCountClaim(value: model.passwordChangeCount)
-    }
-
-    public func verify(using signer: JWTSigner) throws {
-        try exp.verifyNotExpired()
+        self.sub = try SubjectClaim(value: model.requireID().description)
     }
 
     public var passwordChangeCount: Int {
         return pcc.value
+    }
+
+    public func verify(using signer: JWTSigner) throws {
+        try exp.verifyNotExpired()
     }
 }

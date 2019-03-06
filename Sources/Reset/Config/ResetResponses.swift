@@ -30,9 +30,9 @@ public struct ResetResponses<U: JWTAuthenticatable> {
     public static var `default`: ResetResponses {
         return .init(
             resetPasswordRequestForm: { req in
-                return try req
-                    .make(LeafRenderer.self)
-                    .render(ViewPaths.resetPasswordRequestForm.rawValue)
+                try req
+                    .view()
+                    .render(ViewPaths.resetPasswordRequestForm.rawValue, on: req)
                     .encode(for: req)
             },
             resetPasswordUserNotified: { req in
@@ -43,12 +43,12 @@ public struct ResetResponses<U: JWTAuthenticatable> {
                 }
 
                 return try req
-                    .make(LeafRenderer.self)
-                    .render(ViewPaths.resetPasswordUserNotified.rawValue)
+                    .view()
+                    .render(ViewPaths.resetPasswordUserNotified.rawValue, on: req)
                     .encode(for: req)
             },
             resetPasswordForm: { req, user in
-                return try req
+                try req
                     .make(LeafRenderer.self)
                     .render(ViewPaths.resetPasswordForm.rawValue)
                     .encode(for: req)
@@ -61,8 +61,8 @@ public struct ResetResponses<U: JWTAuthenticatable> {
                 }
 
                 return try req
-                    .make(LeafRenderer.self)
-                    .render(ViewPaths.resetPasswordSuccess.rawValue)
+                    .view()
+                    .render(ViewPaths.resetPasswordSuccess.rawValue, on: req)
                     .encode(for: req)
             }
         )

@@ -6,7 +6,7 @@ public final class ResetConfigTag: TagRenderer {
     public func render(tag: TagContext) throws -> Future<TemplateData> {
         try tag.requireParameterCount(1)
         let config = try tag.container.make(ResetConfigTagData.self)
-        return Future.map(on: tag) { try config.viewData(for: tag.parameters[0], tag: tag) }
+        return try tag.future(config.viewData(for: tag.parameters[0], tag: tag))
     }
 
     public init() {}
