@@ -54,7 +54,7 @@ public extension ResetConfig {
             .signToken(using: expirableSigner, on: req)
             .flatMap(to: Void.self) { token in
                 let url = self.baseURL
-                    .appending("\(self.endpoints.resetPassword ?? "")/\(token)")
+                    .appending("\(self.endpoints.renderResetPassword ?? "")/\(token)")
                 return try object.sendPasswordReset(
                     url: url,
                     token: token,
