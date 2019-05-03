@@ -47,7 +47,7 @@ extension ResetProvider where U.Database: QuerySupporting, U.ID: LosslessStringC
 // MARK: - Routes
 
 public extension Router {
-    public func useResetRoutes<U: JWTAuthenticatable & PasswordResettable>(
+    func useResetRoutes<U: JWTAuthenticatable & PasswordResettable>(
         _ type: U.Type,
         on container: Container
     ) throws {
@@ -85,7 +85,7 @@ public extension Router {
 // MARK: Leaf tags
 
 public extension LeafTagConfig {
-    public mutating func useResetLeafTags() {
+    mutating func useResetLeafTags() {
         use(ResetConfigTag(), as: "reset:config")
     }
 }

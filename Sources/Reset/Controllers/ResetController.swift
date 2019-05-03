@@ -83,7 +83,7 @@ open class ResetController
 }
 
 public extension ResetConfig {
-    public func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
+    func extractVerifiedPayload(from token: String) throws -> U.JWTPayload {
         let payload = try JWT<U.JWTPayload>(from: token, verifiedUsing: signer).payload
 
         try payload.verify(using: signer)
