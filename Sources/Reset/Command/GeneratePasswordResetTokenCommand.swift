@@ -74,7 +74,7 @@ public extension GeneratePasswordResetTokenCommand where U.ID: LosslessStringCon
     /// - Parameters:
     ///   - databaseIdentifier: identifier of database from where to load the user.
     ///   - context: The Reset context to use when generating the token.
-    public init(
+    init(
         databaseIdentifier: DatabaseIdentifier<U.Database>,
         context: U.Context = U.Context.requestResetPassword()
     ) {
