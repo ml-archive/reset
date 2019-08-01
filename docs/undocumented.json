@@ -1,0 +1,558 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 6,
+      "symbol": "ResetConfig",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 7,
+      "symbol": "ResetConfig.baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 8,
+      "symbol": "ResetConfig.controller",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 9,
+      "symbol": "ResetConfig.endpoints",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 10,
+      "symbol": "ResetConfig.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 11,
+      "symbol": "ResetConfig.responses",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 12,
+      "symbol": "ResetConfig.signer",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 42,
+      "symbol": "ResetConfig",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 43,
+      "symbol": "ResetConfig.reset(_:context:on:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetConfig.swift",
+      "line": 85,
+      "symbol": "ResetConfig",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetEndpoints.swift",
+      "line": 4,
+      "symbol": "ResetEndpoints",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetEndpoints.swift",
+      "line": 5,
+      "symbol": "ResetEndpoints.renderResetPasswordRequest",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetEndpoints.swift",
+      "line": 6,
+      "symbol": "ResetEndpoints.resetPasswordRequest",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetEndpoints.swift",
+      "line": 7,
+      "symbol": "ResetEndpoints.renderResetPassword",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetEndpoints.swift",
+      "line": 8,
+      "symbol": "ResetEndpoints.resetPassword",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetEndpoints.swift",
+      "line": 29,
+      "symbol": "ResetEndpoints.default",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 5,
+      "symbol": "ResetResponses",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 13,
+      "symbol": "ResetResponses.resetPasswordRequestForm",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 14,
+      "symbol": "ResetResponses.resetPasswordUserNotified",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 15,
+      "symbol": "ResetResponses.resetPasswordForm",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 16,
+      "symbol": "ResetResponses.resetPasswordSuccess",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 18,
+      "symbol": "ResetResponses.init(resetPasswordRequestForm:resetPasswordUserNotified:resetPasswordForm:resetPasswordSuccess:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Config/ResetResponses.swift",
+      "line": 30,
+      "symbol": "ResetResponses.default",
+      "symbol_kind": "source.lang.swift.decl.var.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 6,
+      "symbol": "ResetControllerType",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 7,
+      "symbol": "ResetControllerType.renderResetPasswordRequestForm(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 8,
+      "symbol": "ResetControllerType.resetPasswordRequest(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 9,
+      "symbol": "ResetControllerType.renderResetPasswordForm(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 10,
+      "symbol": "ResetControllerType.resetPassword(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 13,
+      "symbol": "ResetController",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 16,
+      "symbol": "ResetController.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 18,
+      "symbol": "ResetController.renderResetPasswordRequestForm(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 23,
+      "symbol": "ResetController.resetPasswordRequest(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 44,
+      "symbol": "ResetController.renderResetPasswordForm(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 59,
+      "symbol": "ResetController.resetPassword(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Controllers/ResetController.swift",
+      "line": 86,
+      "symbol": "ResetConfig.extractVerifiedPayload(from:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 8,
+      "symbol": "HasPasswordChangeCount",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 9,
+      "symbol": "HasPasswordChangeCount.passwordChangeCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 12,
+      "symbol": "HasRequestResetPasswordContext",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 13,
+      "symbol": "HasRequestResetPasswordContext.requestResetPassword()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 16,
+      "symbol": "ResetPasswordContext",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 17,
+      "symbol": "ResetPasswordContext.userRequestedToResetPassword",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 19,
+      "symbol": "ResetPasswordContext.requestResetPassword()",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 24,
+      "symbol": "PasswordResettable",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 32,
+      "symbol": "PasswordResettable.Context",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 33,
+      "symbol": "PasswordResettable.RequestReset",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 34,
+      "symbol": "PasswordResettable.ResetPassword",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 36,
+      "symbol": "PasswordResettable.find(by:on:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 41,
+      "symbol": "PasswordResettable.sendPasswordReset(url:token:expirationPeriod:context:on:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 53,
+      "symbol": "PasswordResettable.expirationPeriod(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 56,
+      "symbol": "PasswordResettable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 57,
+      "symbol": "PasswordResettable.expirationPeriod(for:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 62,
+      "symbol": "PasswordResettable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 66,
+      "symbol": "PasswordResettable.find(by:on:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 75,
+      "symbol": "PasswordResettable",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 89,
+      "symbol": "ModelPayloadType",
+      "symbol_kind": "source.lang.swift.decl.protocol",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 90,
+      "symbol": "ModelPayloadType.PayloadModel",
+      "symbol_kind": "source.lang.swift.decl.associatedtype",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 91,
+      "symbol": "ModelPayloadType.init(expirationTime:model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 94,
+      "symbol": "ModelPayload",
+      "symbol_kind": "source.lang.swift.decl.struct",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 100,
+      "symbol": "ModelPayload.PayloadModel",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 103,
+      "symbol": "ModelPayload.pcc",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 106,
+      "symbol": "ModelPayload.init(expirationTime:model:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/PasswordResettable.swift",
+      "line": 115,
+      "symbol": "ModelPayload.passwordChangeCount",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 8,
+      "symbol": "ResetProvider",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 11,
+      "symbol": "ResetProvider.init(configFactory:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 18,
+      "symbol": "ResetProvider",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 35,
+      "symbol": "ResetProvider",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 36,
+      "symbol": "ResetProvider.commands(databaseIdentifier:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.static",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 50,
+      "symbol": "Router.useResetRoutes(_:on:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Provider/ResetProvider.swift",
+      "line": 88,
+      "symbol": "LeafTagConfig.useResetLeafTags()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/ResetError.swift",
+      "line": 3,
+      "symbol": "ResetError",
+      "symbol_kind": "source.lang.swift.decl.enum",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/ResetError.swift",
+      "line": 4,
+      "symbol": "ResetError.tokenAlreadyUsed",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/ResetError.swift",
+      "line": 5,
+      "symbol": "ResetError.userNotFound",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/ResetError.swift",
+      "line": 9,
+      "symbol": "ResetError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/ResetError.swift",
+      "line": 26,
+      "symbol": "ResetError",
+      "symbol_kind": "source.lang.swift.decl.extension",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Tags/ResetConfigTag.swift",
+      "line": 5,
+      "symbol": "ResetConfigTag",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Tags/ResetConfigTag.swift",
+      "line": 12,
+      "symbol": "ResetConfigTag.init()",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Tags/ResetConfigTag.swift",
+      "line": 15,
+      "symbol": "ResetConfigTagData",
+      "symbol_kind": "source.lang.swift.decl.class",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Tags/ResetConfigTag.swift",
+      "line": 21,
+      "symbol": "ResetConfigTagData.name",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/emilmarashliev/Projects/reset/Sources/Reset/Tags/ResetConfigTag.swift",
+      "line": 22,
+      "symbol": "ResetConfigTagData.baseURL",
+      "symbol_kind": "source.lang.swift.decl.var.instance",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/emilmarashliev/Projects/reset"
+}
