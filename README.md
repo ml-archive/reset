@@ -15,7 +15,7 @@ Add `Reset` to the package dependencies (in your `Package.swift` file):
 ```swift
 dependencies: [
     ...,
-    .package(url: "https://github.com/nodes-vapor/reset.git", from: "1.0.0-rc")
+    .package(url: "https://github.com/nodes-vapor/reset.git", from: "1.0.0")
 ]
 ```
 
@@ -242,7 +242,6 @@ Alternatively, instead of passing in `ResetResponses` in the `ResetConfig`, one 
 ## 🏆 Credits
 
 This package is developed and maintained by the Vapor team at [Nodes](https://www.nodesagency.com).
-The package owner for this project is [Martin](https://github.com/martinlasek).
 
 
 ## 📄 License
