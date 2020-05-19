@@ -1,6 +1,1 @@
-import XCTest
-@testable import ResetTests
-
-XCTMain([
-     testCase(ResetTests.allTests),
-])
+fatalError("Please use swift test --enable-test-discovery to run the tests instead")
