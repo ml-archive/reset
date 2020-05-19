@@ -1,7 +1,10 @@
 # .github/workflows/documentation.yml
 name: Documentation
 
-on: [push]
+on: 
+  push:
+    branches:
+      - 'master'
 
 jobs:
   build:
@@ -13,10 +16,11 @@ jobs:
         uses: SwiftDocOrg/swift-doc@master
         with:
           inputs: "Sources/Reset"
+          module-name: Reset
           output: "Documentation"
       - name: Upload Documentation to Wiki
-        uses: SwiftDocOrg/github-wiki-publish-action@master
+        uses: SwiftDocOrg/github-wiki-publish-action@master@v1
         with:
           path: "Documentation"
         env:
-          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.GITHUB_PERSONAL_ACCESS_TOKEN }}
+          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
