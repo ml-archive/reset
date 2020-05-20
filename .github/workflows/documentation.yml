@@ -19,4 +19,4 @@ jobs:
         with:
           path: "Documentation"
         env:
-          GITHUB_PERSONAL_ACCESS_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.WIKI_ACCESS_TOKEN }}.2
