@@ -2,7 +2,10 @@
 import PackageDescription
 
 let package = Package(
-    name: "Reset",
+    name: "reset",
+    platforms: [
+       .macOS(.v10_15)
+    ],
     products: [
         .library(name: "Reset", targets: ["Reset"]),
     ],
