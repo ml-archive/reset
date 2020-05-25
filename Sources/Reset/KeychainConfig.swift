@@ -12,6 +12,17 @@ extension KeychainConfig where JWTPayload.User: Authenticatable {
 }
 
 extension KeychainConfig {
+    public static func makeToken(
+        for user: JWTPayload.User,
+        on request: Request,
+        currentDate: Date = Date()
+    ) throws -> String {
+        try request
+            .keychain
+            .config(for: Self.self)
+            .makeToken(for: user, on: request, currentDate: currentDate)
+    }
+
     public func makeToken(
         for user: JWTPayload.User,
         on request: Request,
@@ -27,11 +38,27 @@ extension KeychainConfig {
     }
 }
 
+extension KeychainConfig where JWTPayload.User: Authenticatable {
+    public static func makeToken(
+        on request: Request,
+        currentDate: Date = Date()
+    ) throws -> String {
+        try makeToken(for: request.auth.require(), on: request, currentDate: currentDate)
+    }
+
+    public func makeToken(
+        on request: Request,
+        currentDate: Date = Date()
+    ) throws -> String {
+        try makeToken(for: request.auth.require(), on: request, currentDate: currentDate)
+    }
+}
+
 struct Authenticator<T: KeychainConfig>: JWTAuthenticator where T.JWTPayload.User: Authenticatable {
     func authenticate(
-        jwt resetPayload: T.JWTPayload,
+        jwt: T.JWTPayload,
         for request: Request
     ) -> EventLoopFuture<Void> {
-        resetPayload.findUser(request: request).map(request.auth.login)
+        jwt.findUser(request: request).map(request.auth.login)
     }
 }

@@ -1,17 +1,15 @@
 import Vapor
 
-public protocol ResetRequestProtocol {
-    associatedtype User
+public protocol ResetPasswordRequest: ValidatableRequest {
+    associatedtype Model
 
-    init(request: Request) throws
-
-    static var hashedPasswordKey: ReferenceWritableKeyPath<User, String> { get }
+    static var hashedPasswordKey: ReferenceWritableKeyPath<Model, String> { get }
 
     var password: String { get }
 }
 
-public extension ResetRequestProtocol {
-    static func updatePassword(for user: User, on request: Request) -> EventLoopFuture<User> {
+public extension ResetPasswordRequest {
+    static func updatePassword(for user: Model, on request: Request) -> EventLoopFuture<Model> {
         do {
             return request
                 .password
@@ -27,18 +25,12 @@ public extension ResetRequestProtocol {
     }
 }
 
-public extension ResetRequestProtocol where User: Authenticatable {
-    static func updatePassword(on request: Request) -> EventLoopFuture<User> {
+public extension ResetPasswordRequest where Model: Authenticatable {
+    static func updatePassword(on request: Request) -> EventLoopFuture<Model> {
         do {
             return updatePassword(for: try request.auth.require(), on: request)
         } catch {
             return request.eventLoop.makeFailedFuture(error)
         }
-    }
-}
-
-public extension ResetRequestProtocol where Self: Decodable {
-    init(request: Request) throws {
-        self = try request.content.decode(Self.self)
     }
 }
