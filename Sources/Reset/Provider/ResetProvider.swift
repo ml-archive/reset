@@ -56,29 +56,20 @@ public extension Router {
         let controller = config.controller
 
         if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
-            get(
-                renderResetPasswordRequestPath,
-                use: { req in try controller.renderResetPasswordRequestForm(req) }
-            )
+            get(renderResetPasswordRequestPath) { req in try controller.renderResetPasswordRequestForm(req) }
         }
 
-        // if let resetPasswordRequestPath = endpoints.resetPasswordRequest {
-        //     post(resetPasswordRequestPath, use: controller.resetPasswordRequest)
-        // }
+        if let resetPasswordRequestPath = endpoints.resetPasswordRequest {
+            post(resetPasswordRequestPath) { req in try controller.resetPasswordRequest(req) }
+        }
 
-        // if let renderResetPasswordPath = endpoints.renderResetPassword {
-        //     get(
-        //         renderResetPasswordPath, String.parameter,
-        //         use: controller.renderResetPasswordForm
-        //     )
-        // }
+        if let renderResetPasswordPath = endpoints.renderResetPassword {
+            get(renderResetPasswordPath, String.parameter) { req in try controller.renderResetPasswordForm(req) }
+        }
 
-        // if let resetPasswordPath = endpoints.resetPassword {
-        //     post(
-        //         resetPasswordPath, String.parameter,
-        //         use: controller.resetPassword
-        //     )
-        // }
+        if let resetPasswordPath = endpoints.resetPassword {
+            post(resetPasswordPath, String.parameter) { req in try controller.resetPassword(req) }
+        }
     }
 }
 
