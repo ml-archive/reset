@@ -47,10 +47,10 @@ extension ResetProvider where U.Database: QuerySupporting, U.ID: LosslessStringC
 // MARK: - Routes
 
 public extension Router {
-    func useResetRoutes<U: JWTAuthenticatable & PasswordResettable>(
+    func useResetRoutes<U>(
         _ type: U.Type,
         on container: Container
-    ) throws {
+    ) throws where U: JWTAuthenticatable & PasswordResettable {
         let config: ResetConfig<U> = try container.make()
         let endpoints = config.endpoints
         let controller = config.controller
