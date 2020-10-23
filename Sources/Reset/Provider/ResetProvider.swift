@@ -51,9 +51,9 @@ public extension Router {
         _ type: U.Type,
         on container: Container
     ) throws where U: JWTAuthenticatable & PasswordResettable {
-        // let config: ResetConfig<U> = try container.make()
-        // let endpoints = config.endpoints
-        // let controller = config.controller
+        let config: ResetConfig<U> = try container.make()
+        let endpoints = config.endpoints
+        let controller = config.controller
 
         // if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
         //     get(
