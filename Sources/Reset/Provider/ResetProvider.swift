@@ -56,7 +56,7 @@ public extension Router {
         let controller = config.controller
 
         if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
-            get(
+            self.get(
                 renderResetPasswordRequestPath,
                 use: controller.renderResetPasswordRequestForm
             )
