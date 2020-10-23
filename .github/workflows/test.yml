@@ -11,7 +11,9 @@ jobs:
       DEVELOPER_DIR: /Applications/Xcode_12.app/Contents/Developer
     steps:
     - uses: actions/checkout@v2
-    - run: xcrun swift test --enable-test-discovery --sanitize=thread
+    # - run: brew install openssl
+    - run: brew install libressl
+    - run: xcrun swift test --enable-test-discovery --sanitize=thread -Xcxx "-I/usr/local/opt/openssl/include" -Xlinker "-L/usr/local/opt/openssl/lib"
   linux-4_2:
     runs-on: ubuntu-latest
     container:
@@ -30,5 +32,6 @@ jobs:
     container: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
+    - run: apt-get -qq update && apt-get install -y libssl-dev
     - run: swift test --enable-test-discovery --sanitize=thread
 
