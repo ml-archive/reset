@@ -47,18 +47,18 @@ extension ResetProvider where U.Database: QuerySupporting, U.ID: LosslessStringC
 // MARK: - Routes
 
 public extension Router {
-    func useResetRoutes<U>(
+    func useResetRoutes<U: JWTAuthenticatable & PasswordResettable>(
         _ type: U.Type,
         on container: Container
-    ) throws where U: JWTAuthenticatable & PasswordResettable {
+    ) throws {
         let config: ResetConfig<U> = try container.make()
         let endpoints = config.endpoints
         let controller = config.controller
 
         if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
-            self.get(
+            get(
                 renderResetPasswordRequestPath,
-                use: controller.renderResetPasswordRequestForm
+                use: { req in try controller.renderResetPasswordRequestForm(req) }
             )
         }
 
