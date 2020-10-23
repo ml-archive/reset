@@ -14,13 +14,20 @@ jobs:
     - run: brew install openssl
     - run: brew install libressl
     - run: xcrun swift test --enable-test-discovery --sanitize=thread -Xcxx "-I/usr/local/opt/openssl/include" -Xlinker "-L/usr/local/opt/openssl/lib"
+  linux-4_2:
+    runs-on: ubuntu-latest
+    container:
+       image: swift:4.2
+    steps:
+    - uses: actions/checkout@v2
+    - run: apt-get -qq update && apt-get install -y libssl-dev
+    - run: swift test
   linux:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         image:
-          - swift:4.2
           - swift:5.2-focal
           - swift:5.3-focal
     container: ${{ matrix.image }}
@@ -28,3 +35,4 @@ jobs:
     - uses: actions/checkout@v2
     - run: apt-get -qq update && apt-get install -y libssl-dev
     - run: swift test --enable-test-discovery --sanitize=thread
+
