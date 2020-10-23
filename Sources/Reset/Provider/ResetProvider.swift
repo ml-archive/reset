@@ -51,34 +51,34 @@ public extension Router {
         _ type: U.Type,
         on container: Container
     ) throws where U: JWTAuthenticatable & PasswordResettable {
-        let config: ResetConfig<U> = try container.make()
-        let endpoints = config.endpoints
-        let controller = config.controller
+        // let config: ResetConfig<U> = try container.make()
+        // let endpoints = config.endpoints
+        // let controller = config.controller
 
-        if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
-            get(
-                renderResetPasswordRequestPath,
-                use: controller.renderResetPasswordRequestForm
-            )
-        }
+        // if let renderResetPasswordRequestPath = endpoints.renderResetPasswordRequest {
+        //     get(
+        //         renderResetPasswordRequestPath,
+        //         use: controller.renderResetPasswordRequestForm
+        //     )
+        // }
 
-        if let resetPasswordRequestPath = endpoints.resetPasswordRequest {
-            post(resetPasswordRequestPath, use: controller.resetPasswordRequest)
-        }
+        // if let resetPasswordRequestPath = endpoints.resetPasswordRequest {
+        //     post(resetPasswordRequestPath, use: controller.resetPasswordRequest)
+        // }
 
-        if let renderResetPasswordPath = endpoints.renderResetPassword {
-            get(
-                renderResetPasswordPath, String.parameter,
-                use: controller.renderResetPasswordForm
-            )
-        }
+        // if let renderResetPasswordPath = endpoints.renderResetPassword {
+        //     get(
+        //         renderResetPasswordPath, String.parameter,
+        //         use: controller.renderResetPasswordForm
+        //     )
+        // }
 
-        if let resetPasswordPath = endpoints.resetPassword {
-            post(
-                resetPasswordPath, String.parameter,
-                use: controller.resetPassword
-            )
-        }
+        // if let resetPasswordPath = endpoints.resetPassword {
+        //     post(
+        //         resetPasswordPath, String.parameter,
+        //         use: controller.resetPassword
+        //     )
+        // }
     }
 }
 
