@@ -17,11 +17,12 @@ jobs:
   linux:
     runs-on: ubuntu-latest
     strategy:
-        matrix:
-          image:
-            - swift:4.2-bionic
-            - swift:5.2-focal
-            - swift:5.3-focal
+      fail-fast: false
+      matrix:
+        image:
+          - swift:4.2
+          - swift:5.2-focal
+          - swift:5.3-focal
     container: ${{ matrix.image }}
     steps:
     - uses: actions/checkout@v2
